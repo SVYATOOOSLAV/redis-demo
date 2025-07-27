@@ -15,7 +15,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Cacheable(value = "users", key = "#id")
+    @Cacheable(cacheNames = "events", key = "#id")
     public UserEntity getUser(Long id) {
         log.debug("Cache missing get user from database with id {}", id);
         return userRepository.findById(id).orElse(null);

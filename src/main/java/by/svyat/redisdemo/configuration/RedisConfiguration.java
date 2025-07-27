@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +51,9 @@ public class RedisConfiguration {
     ) {
         Map<String, RedisCacheConfiguration> configs = new HashMap<>();
 
+        RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(30));
+
         cacheConfig.getCaches().forEach(cacheProp -> {
             configs.put(
                     cacheProp.getCacheName(),
@@ -58,6 +62,7 @@ public class RedisConfiguration {
         });
 
         return RedisCacheManager.builder(factory)
+                .cacheDefaults(defaultConfig)
                 .withInitialCacheConfigurations(configs)
                 .build();
     }
