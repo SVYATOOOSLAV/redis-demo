@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: redis-demo
+  datasource:
+    url: jdbc:postgresql://localhost:6432/postgres_database
+    username: postgres
+    password: postgres
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 3
+      pool-name: "HikariPoolPostgres"
+      driver-class-name: org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: ./db/changelog/master-changelog.xml
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
