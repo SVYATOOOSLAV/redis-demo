@@ -1,6 +1,7 @@
 package by.svyat.redisdemo.controller;
 
 import by.svyat.redisdemo.dto.UserDto;
+import by.svyat.redisdemo.entity.UserEntity;
 import by.svyat.redisdemo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,12 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUser(id));
+        UserEntity entity = userService.getUser(id);
+        return ResponseEntity.ok(new UserDto(
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getDateOfBirth()
+        ));
     }
 
     @PostMapping("/users")
