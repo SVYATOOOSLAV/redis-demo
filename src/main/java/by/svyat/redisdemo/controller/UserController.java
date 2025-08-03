@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PatchMapping("/users/{id}")
-    public void deleteUser(
+    public void updateLastNameForUser(
             @PathVariable Long id,
             @RequestBody UserDto userDto
     ) {
