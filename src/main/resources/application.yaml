@@ -4,9 +4,9 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: jdbc:postgresql://localhost:6432/postgres_database
-    username: postgres
-    password: postgres
+    url: ${DATABASE_JDBC_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     hikari:
       minimum-idle: 2
       maximum-pool-size: 3
@@ -31,3 +31,13 @@ spring:
   caches:
     - cache-name: users
       ttl: 60s
+
+app:
+  security:
+    users:
+      - username: user1
+        password: ${FIRST_USER_PASSWORD}
+        roles: USER
+      - username: admin
+        password: ${SECOND_USER_PASSWORD}
+        roles: ADMIN,USER
